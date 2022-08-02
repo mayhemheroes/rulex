@@ -6,14 +6,14 @@ ADD . /src
 WORKDIR /src
 
 RUN echo building instrumented harnesses && \
-    bash -c "pushd rulex-lib/fuzz && cargo +nightly -Z sparse-registry fuzz build && popd" && \
-    mv rulex-lib/fuzz/target/x86_64-unknown-linux-gnu/release/parse_and_compile /parse_and_compile && \
+    bash -c "pushd pomsky-lib/fuzz && cargo +nightly -Z sparse-registry fuzz build && popd" && \
+    mv pomsky-lib/fuzz/target/x86_64-unknown-linux-gnu/release/parse_and_compile /parse_and_compile && \
     echo done
 
 RUN echo building non-instrumented harnesses && \
     export RUSTFLAGS="--cfg fuzzing -Clink-dead-code -Cdebug-assertions -C codegen-units=1" && \
-    bash -c "pushd rulex-lib/fuzz && cargo +nightly -Z sparse-registry build --release && popd" && \
-    mv rulex-lib/fuzz/target/release/parse_and_compile /parse_and_compile_no_inst && \
+    bash -c "pushd pomsky-lib/fuzz && cargo +nightly -Z sparse-registry build --release && popd" && \
+    mv pomsky-lib/fuzz/target/release/parse_and_compile /parse_and_compile_no_inst && \
     echo done
 
 # Package Stage
