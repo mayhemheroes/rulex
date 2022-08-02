@@ -1,0 +1,7 @@
+project: rulex
+target: parse-and-compile
+
+cmds:
+  - cmd: /parse_and_compile
+  - cmd: /parse_and_compile_no_inst @@
+    libfuzzer: false
