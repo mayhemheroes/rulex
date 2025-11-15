@@ -103,6 +103,7 @@ interface PomskyTestCapture {
 ///  - "dotnet" or ".net"
 ///  - "pcre"
 ///  - "python"
+///  - "re2"
 ///  - "ruby"
 ///  - "rust"
 pub fn compile(input: &str, flavor: &str) -> Result<PomskyResult, PomskyError> {
@@ -207,6 +208,7 @@ fn parse_flavor(flavor: &str) -> Option<RegexFlavor> {
         "dotnet" | ".net" => RegexFlavor::DotNet,
         "pcre" => RegexFlavor::Pcre,
         "python" => RegexFlavor::Python,
+        "re2" => RegexFlavor::RE2,
         "ruby" => RegexFlavor::Ruby,
         "rust" => RegexFlavor::Rust,
         _ => return None,

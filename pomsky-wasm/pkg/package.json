@@ -1,5 +1,5 @@
 {
-  "name": "@pomsky-lang/compiler-node",
+  "name": "@pomsky-lang/compiler-web",
   "type": "module",
   "collaborators": [
     "Pomsky developers <info@pomsky-lang.org>"
@@ -15,7 +15,6 @@
     "snippets",
     "compiler_web_bg.wasm",
     "compiler_web.js",
-    "compiler_web_bg.js",
     "compiler_web.d.ts",
     "LICENSE_MIT",
     "LICENSE_APACHE"
@@ -24,7 +23,6 @@
   "homepage": "https://pomsky-lang.org",
   "types": "compiler_web.d.ts",
   "sideEffects": [
-    "./compiler_web.js",
     "./snippets/*"
   ]
 }

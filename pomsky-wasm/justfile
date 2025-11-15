@@ -1,11 +1,25 @@
 set export
 
-just_msg := "\nDone. Make sure to add 'snippets' to the 'files' array in package.json!\nCheck if you set to package name correctly!\nNow copy the appropriate README to the pkg/ directory.\nDon't forget to publish with  --access=public!\n"
+publish:
+    just build-node
+    npm publish --access=public
+
+    just build-web
+    npm publish --access=public
+
+# 0. set package name
+# 1. compile
+# 2. add "snippets" to the 'files' array in package.json
+# 3. add correct README
 
 build-web:
+    sed -i -e 's/name = "compiler-node"/name = "compiler-web"/g' ./Cargo.toml
     wasm-pack build --target=web --scope=pomsky-lang -- --features suggestions
-    echo "$just_msg"
+    sed -i -e 's/"files": \[/"files": \[\n    "snippets",/g' ./pkg/package.json
+    cp README-web.md pkg/README.md
 
 build-node:
+    sed -i -e 's/name = "compiler-web"/name = "compiler-node"/g' ./Cargo.toml
     wasm-pack build --scope=pomsky-lang -- --features suggestions
-    echo "$just_msg"
+    sed -i -e 's/"files": \[/"files": \[\n    "snippets",/g' ./pkg/package.json
+    cp README-node.md pkg/README.md
