@@ -1,11 +1,12 @@
 set export
 
 publish:
+    # if not logged in, run `npm adduser` beforehand
     just build-node
-    npm publish --access=public
+    cd pkg && npm publish --access=public
 
     just build-web
-    npm publish --access=public
+    cd pkg && npm publish --access=public
 
 # 0. set package name
 # 1. compile
