@@ -29,6 +29,7 @@ const FLAVORS: &[HelpSection] = sections![
 const ENGINES: &[HelpSection] = sections![
     table Compact {
         "pcre2"       => { ["PCRE2 regex engine, using the " c:"pcre" " flavor"] }
+        "rust"        => { ["Rust regex engine, using the " c:"rust" " flavor"] }
     }
 ];
 
@@ -164,25 +165,15 @@ pub(super) const TEST_HELP: Help = Help(sections![
     Use " c:"-h" " for short descriptions and " c:"--help" " for more details."]
 
     "Usage" {
-        ["pomsky test [OPTIONS] --path <PATH>"]
-    }
-
-    "Args" {
-        table Auto {
-            "<INPUT>" => {
-                ["Pomsky expression to test"]
-                Long ["\n\
-                To learn about the pomsky language, start here:\n\
-                https://pomsky-lang.org/docs/"]
-            }
-        }
+        ["pomsky test [OPTIONS]"]
     }
 
     "Options" {
         table Auto {
-            "    --allowed-features <FEATURE>..." => {
-                ["Comma-separated list of allowed features [default: all enabled]"]
-                Long ["Supported features are listed below."]
+            "-p, --path <PATH>" => {
+                ["File or directory containing the pomsky expressions to compile"]
+                Long ["If a directory is specified, all contained " c:"*.pomsky" " files are tested.
+Note that pomsky respects " c:".gitignore" " files."]
             }
             "-f, --flavor <FLAVOR>" => {
                 ["Regex flavor"]
@@ -193,17 +184,16 @@ pub(super) const TEST_HELP: Help = Help(sections![
                 ["Regex engine used for testing"]
                 Long ["If " c:"--flavor" " is specified, the engine can be omitted."]
             }
+            "    --pass-with-no-tests" => {
+                ["Don't error if the specified directory contains no " c:"*.pomsky" " files"]
+            }
+            "    --allowed-features <FEATURE>..." => {
+                ["Comma-separated list of allowed features [default: all enabled]"]
+                Long ["Supported features are listed below."]
+            }
             "-h, --help" => {
                 ["Print help information"]
                 Long ["Use " c:"-h" " for short descriptions and " c:"--help" " for more details."]
-            }
-            "-p, --path <PATH>" => {
-                ["File or directory containing the pomsky expressions to compile"]
-                Long ["If a directory is specified, all contained " c:"*.pomsky" " files are tested.
-Note that pomsky respects " c:".gitignore" " files."]
-            }
-            "    --pass-with-no-tests" => {
-                ["Don't error if the specified directory contains no " c:"*.pomsky" " files"]
             }
             "-W, --warnings <DIAGNOSTICS>" => WARNINGS
             "    --json" => {
